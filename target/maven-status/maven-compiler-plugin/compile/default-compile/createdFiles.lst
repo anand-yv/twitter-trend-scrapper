@@ -1,0 +1,9 @@
+com\twitter\scrapper\TwitterTrendingScraper\controllers\TrendsController.class
+com\twitter\scrapper\TwitterTrendingScraper\controllers\PageController.class
+com\twitter\scrapper\TwitterTrendingScraper\dtos\TrendResponseDto.class
+com\twitter\scrapper\TwitterTrendingScraper\services\TwitterTrendServices.class
+com\twitter\scrapper\TwitterTrendingScraper\controllers\TwitterTrendController.class
+com\twitter\scrapper\TwitterTrendingScraper\repositories\TrendRepository.class
+com\twitter\scrapper\TwitterTrendingScraper\services\TrendServices.class
+com\twitter\scrapper\TwitterTrendingScraper\TwitterTrendingScraperApplication.class
+com\twitter\scrapper\TwitterTrendingScraper\models\TrendModel.class

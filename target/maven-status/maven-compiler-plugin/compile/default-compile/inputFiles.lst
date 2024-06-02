@@ -1,0 +1,9 @@
+D:\LEARNING\Internship\TwitterTrendingScraper\src\main\java\com\twitter\scrapper\TwitterTrendingScraper\controllers\PageController.java
+D:\LEARNING\Internship\TwitterTrendingScraper\src\main\java\com\twitter\scrapper\TwitterTrendingScraper\controllers\TrendsController.java
+D:\LEARNING\Internship\TwitterTrendingScraper\src\main\java\com\twitter\scrapper\TwitterTrendingScraper\controllers\TwitterTrendController.java
+D:\LEARNING\Internship\TwitterTrendingScraper\src\main\java\com\twitter\scrapper\TwitterTrendingScraper\dtos\TrendResponseDto.java
+D:\LEARNING\Internship\TwitterTrendingScraper\src\main\java\com\twitter\scrapper\TwitterTrendingScraper\models\TrendModel.java
+D:\LEARNING\Internship\TwitterTrendingScraper\src\main\java\com\twitter\scrapper\TwitterTrendingScraper\repositories\TrendRepository.java
+D:\LEARNING\Internship\TwitterTrendingScraper\src\main\java\com\twitter\scrapper\TwitterTrendingScraper\services\TrendServices.java
+D:\LEARNING\Internship\TwitterTrendingScraper\src\main\java\com\twitter\scrapper\TwitterTrendingScraper\services\TwitterTrendServices.java
+D:\LEARNING\Internship\TwitterTrendingScraper\src\main\java\com\twitter\scrapper\TwitterTrendingScraper\TwitterTrendingScraperApplication.java

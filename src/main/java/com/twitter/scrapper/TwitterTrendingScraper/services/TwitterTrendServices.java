@@ -78,20 +78,23 @@ public class TwitterTrendServices {
                 String proxyMeshPassword = proxyPassword;
 
                 // Set up ProxyMesh proxy
-                Proxy proxy = new Proxy();
-                String randomProxy = getRandomProxy();
-                proxy.setHttpProxy(randomProxy);
-                // proxy.setSslProxy(randomProxy);
-                System.out.println("Using proxy: " + randomProxy);
+                // Proxy proxy = new Proxy();
+                // String randomProxy = getRandomProxy();
+                // proxy.setHttpProxy(randomProxy);
+                // // proxy.setSslProxy(randomProxy);
+                // System.out.println("Using proxy: " + randomProxy);
 
                 ChromeOptions options = new ChromeOptions();
-                options.setProxy(proxy);
-                options.addArguments("--proxy-server=" + randomProxy);
-                options.addArguments("--proxy-auth=" + proxyMeshUsername + ":" +
-                                proxyMeshPassword);
+                // options.setProxy(proxy);
+                // options.addArguments("--proxy-server=" + randomProxy);
+                // options.addArguments("--proxy-auth=" + proxyMeshUsername + ":" +
+                //                 proxyMeshPassword);
 
+                
                 System.setProperty("webdriver.chrome.driver",
                                 chromeDriverFileLocation);
+                // System.setProperty("webdriver.chrome.driver",
+                //                 "src/main/resources/static/chromedriver.exe");
 
                 driver = new ChromeDriver(options);
 
@@ -161,8 +164,6 @@ public class TwitterTrendServices {
                                         .add(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)))
                                                         .getText().trim());
                 }
-
-                System.out.println(trendingDivs);
                 return trendingDivs;
         }
 
