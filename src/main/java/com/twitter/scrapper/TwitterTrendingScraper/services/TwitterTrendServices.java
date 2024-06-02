@@ -91,10 +91,10 @@ public class TwitterTrendServices {
                 //                 proxyMeshPassword);
 
                 
-                System.setProperty("webdriver.chrome.driver",
-                                chromeDriverFileLocation);
                 // System.setProperty("webdriver.chrome.driver",
-                //                 "src/main/resources/static/chromedriver.exe");
+                //                 chromeDriverFileLocation);
+                System.setProperty("webdriver.chrome.driver",
+                                "src/main/resources/static/chromedriver.exe");
 
                 driver = new ChromeDriver(options);
 
