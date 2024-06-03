@@ -92,12 +92,12 @@ public class TwitterTrendServices {
                 // options.addArguments("--proxy-auth=" + proxyMeshUsername + ":" +
                 // proxyMeshPassword);
 
-                // System.setProperty("webdriver.chrome.driver",
-                // chromeDriverFileLocation);
+                System.setProperty("webdriver.chrome.driver",
+                chromeDriverFileLocation);
                 // System.setProperty("webdriver.chrome.driver",
                 // "classpath:static/chromedriver.exe");
-                System.setProperty("webdriver.chrome.driver",
-                                "C:/Users/anand_yv/Downloads/chromedriver.exe");
+                // System.setProperty("webdriver.chrome.driver",
+                //                 "C:/Users/anand_yv/Downloads/chromedriver.exe");
 
                 driver = new ChromeDriver(options);
 
@@ -171,12 +171,17 @@ public class TwitterTrendServices {
         private List<String> top5Trends(WebDriverWait wait) {
                 String xpathPattern = "/html/body/div[1]/div/div/div[2]/main/div/div/div/div[2]/div/div[2]/div/div/div/div[4]/div/section/div/div/div[%d]/div/div/div/div[2]";
                 List<String> trendingDivs = new ArrayList<>();
-
                 for (int i = 3; i < 8; i++) {
                         String xpath = String.format(xpathPattern, i);
-                        trendingDivs
-                                        .add(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)))
-                                                        .getText().trim());
+
+                        try {
+                                trendingDivs
+                                                .add(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)))
+                                                                .getText().trim());
+                        } catch (NoSuchElementException e) {
+                                System.out.println("Username next button element not found: " + e.getMessage());
+                                // Continue execution
+                        }
                 }
                 return trendingDivs;
         }
