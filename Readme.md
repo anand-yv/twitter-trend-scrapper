@@ -49,4 +49,5 @@ Once the application is running, you can access the trending topics by navigatin
 - Ensure that MongoDB is running and accessible to the application.
 - Make sure to provide the required configuration values before running the application to enable successful scraping of Twitter data.
 <br>
-```Application will be started on the port [localhost:80]```
+
+#### Application will be started on the port ```localhost:80```
