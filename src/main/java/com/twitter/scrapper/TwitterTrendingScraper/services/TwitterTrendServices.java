@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
-import java.util.concurrent.TimeoutException;
 
 @Service
 public class TwitterTrendServices {
@@ -45,6 +44,9 @@ public class TwitterTrendServices {
 
         @Value("${chromeDriverFileLocation}")
         private String chromeDriverFileLocation;
+
+        @Value("${proxy.enableProxy}")
+        private boolean enableProxy;
 
         private WebDriver driver;
         private List<String> proxyList = List.of(
@@ -74,35 +76,36 @@ public class TwitterTrendServices {
                 return proxyList.get(random.nextInt(proxyList.size()));
         }
 
+        private String ipaddress = getRandomProxy();
+
         // Method to setup the driver and navigate to the URL
         private void setup() {
                 String proxyMeshUsername = proxyUsername;
                 String proxyMeshPassword = proxyPassword;
 
                 // Set up ProxyMesh proxy
-                // Proxy proxy = new Proxy();
-                // String randomProxy = getRandomProxy();
-                // proxy.setHttpProxy(randomProxy);
-                // // proxy.setSslProxy(randomProxy);
-                // System.out.println("Using proxy: " + randomProxy);
+                Proxy proxy = new Proxy();
+                String ipaddress = getRandomProxy();
+                if (enableProxy) {
+                        proxy.setHttpProxy(ipaddress);
+                        proxy.setSslProxy(ipaddress);
+                        System.out.println("Using proxy: " + ipaddress);
+                }
 
                 ChromeOptions options = new ChromeOptions();
-                // options.setProxy(proxy);
-                // options.addArguments("--proxy-server=" + randomProxy);
-                // options.addArguments("--proxy-auth=" + proxyMeshUsername + ":" +
-                // proxyMeshPassword);
+               if (enableProxy) {
+                 options.setProxy(proxy);
+                 options.addArguments("--proxy-server=" + ipaddress);
+                 options.addArguments("--proxy-auth=" + proxyMeshUsername + ":" +
+                 proxyMeshPassword);
+               }
 
-                // System.setProperty("webdriver.chrome.driver",
-                // chromeDriverFileLocation);
-                // System.setProperty("webdriver.chrome.driver",
-                // "classpath:static/chromedriver.exe");
                 System.setProperty("webdriver.chrome.driver",
-                                "C:/Users/anand_yv/Downloads/chromedriver.exe");
+                                chromeDriverFileLocation);
 
                 driver = new ChromeDriver(options);
-
-                driver.get("https://anand_yv:randometrue@x.com");
-                // driver.get("http://@checkip.amazonaws.com");
+                driver.manage().window().maximize();
+                driver.get("https://x.com");
         }
 
         private void login(WebDriverWait wait) throws InterruptedException {
@@ -112,17 +115,17 @@ public class TwitterTrendServices {
                                                         By.xpath("//*[@id=\"layers\"]/div/div[2]/div/div/div/button")));
                         firstButton.click();
 
-                        // Wait for and click the second button
+                        
                         WebElement secondButton = wait.until(ExpectedConditions.elementToBeClickable(
                                         By.xpath("//*[@id=\"react-root\"]/div/div/div[2]/main/div/div/div[1]/div[1]/div/div[3]/div[4]/a")));
                         secondButton.click();
 
-                        // Wait for email input and send keys
+                        
                         WebElement emailInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
                                         "//*[@id=\"layers\"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div/div/div/div[4]/label/div/div[2]/div/input")));
                         emailInput.sendKeys(twitterEmail);
 
-                        // Wait for and click the next button
+                        
                         WebElement emailNextButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
                                         "//*[@id=\"layers\"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div/div/div/button[2]")));
                         emailNextButton.click();
@@ -134,10 +137,9 @@ public class TwitterTrendServices {
                                 usernameInput.sendKeys(twitterUsername);
                         } catch (NoSuchElementException e) {
                                 System.out.println("Username input element not found: " + e.getMessage());
-                                // Continue execution
                         }
 
-                        // Wait for and click another next button
+                        
                         try {
                                 WebElement usernameNextButton = wait
                                                 .until(ExpectedConditions.elementToBeClickable(By.xpath(
@@ -145,20 +147,19 @@ public class TwitterTrendServices {
                                 usernameNextButton.click();
                         } catch (NoSuchElementException e) {
                                 System.out.println("Username next button element not found: " + e.getMessage());
-                                // Continue execution
                         }
 
-                        // Wait for password input and send keys
+                
                         WebElement passwordInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
                                         "//*[@id=\"layers\"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[3]/div/label/div/div[2]/div[1]/input")));
                         passwordInput.sendKeys(twitterPassword);
 
-                        // Wait for and click the login button
+                        
                         WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
                                         "//*[@id=\"layers\"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/div[1]/div/div/button")));
                         loginButton.click();
 
-                        // Close the welcome message if it appears
+                       
                         WebElement welcomeCloseButton = wait.until(ExpectedConditions
                                         .elementToBeClickable(
                                                         By.xpath("//*[@id=\"layers\"]/div/div[1]/div/div/div/button")));
@@ -169,8 +170,6 @@ public class TwitterTrendServices {
         }
 
         private List<String> top5Trends(WebDriverWait wait) {
-                // String xpathPattern =
-                // "/html/body/div[1]/div/div/div[2]/main/div/div/div/div[2]/div/div[2]/div/div/div/div[3]/div/section/div/div/div[%d]/div/div/div/div[2]";
                 String xpathPattern = "/html/body/div[1]/div/div/div[2]/main/div/div/div/div[2]/div/div[2]/div/div/div/div[3]/div/section/div/div/div[%d]/div/div/div/div[2]";
                 List<String> trendingDivs = new ArrayList<>();
                 for (int i = 3; i < 8; i++) {
@@ -181,9 +180,9 @@ public class TwitterTrendServices {
                                                 .add(wait.until(ExpectedConditions
                                                                 .visibilityOfElementLocated(By.xpath(xpath)))
                                                                 .getText().trim());
-                        } catch (NoSuchElementException e) {
+                        } catch (Exception e) {
                                 System.out.println("Username next button element not found: " + e.getMessage());
-                                // Continue execution
+                                
                         }
                 }
                 return trendingDivs;
@@ -203,9 +202,8 @@ public class TwitterTrendServices {
                         e.printStackTrace();
                 } finally {
 
-                        driver.quit(); // Ensure driver is quit properly
+                        driver.quit();
                 }
-                String ipaddress = getRandomProxy();
                 LocalDateTime enDateTime = LocalDateTime.now();
                 TrendResponseDto trendResponseDto = new TrendResponseDto(trends,
                                 ipaddress.substring(0, ipaddress.length() - 5), enDateTime, "", check);
