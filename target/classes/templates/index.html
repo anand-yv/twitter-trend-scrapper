@@ -10,6 +10,8 @@
 <body>
     <h1>Welcome to Twitter Trending Scraper</h1>
 
+    <h5 id="wait-time"></h5>
+
     <p id="timestamp"></p>
 
     <div id="trending-topics">
@@ -27,10 +29,13 @@
 
         <script th:inline="javascript">
             document.getElementById('fetch-trends-link').addEventListener('click', function (event) {
+                const waitTimer = document.getElementById('wait-time')
+                waitTimer.innerHTML = "Please Wait for some time to Scrap the Trending Topics from Twitter";
                 event.preventDefault(); // Prevent default link behavior
                 fetch('/api/start')
                     .then(response => response.json())
                     .then(data => {
+                        waitTimer.style.display = none;
                         const trendingDiv = document.getElementById('trending-topics');
                         trendingDiv.innerHTML = ''; // Clear previous topics
                         data['trends'].forEach((topic, index) => {
@@ -66,7 +71,6 @@
                         document.getElementById('fetch-trends-link').textContent = 'Click here to run the query again.';
                     })
                     .catch(error => console.error('Error fetching trending topics:', error));
-
             });
 
         </script>
