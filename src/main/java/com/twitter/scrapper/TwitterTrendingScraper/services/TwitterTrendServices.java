@@ -93,8 +93,9 @@ public class TwitterTrendServices {
                 
                 // System.setProperty("webdriver.chrome.driver",
                 //                 chromeDriverFileLocation);
-                System.setProperty("webdriver.chrome.driver",
-                                "classpath:static/chromedriver.exe");
+                // System.setProperty("webdriver.chrome.driver",
+                //                 "classpath:static/chromedriver.exe");
+                System.setProperty("webdriver.chrome.driver", "C:/Users/anand_yv/Downloads/chromedriver.exe");
 
                 driver = new ChromeDriver(options);
 
