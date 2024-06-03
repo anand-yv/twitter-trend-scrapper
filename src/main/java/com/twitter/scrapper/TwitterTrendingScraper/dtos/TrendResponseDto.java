@@ -8,12 +8,14 @@ public class TrendResponseDto {
     private String ipaddress;
     private LocalDateTime enDateTime;
     private String id;
+    private boolean check;
 
-    public TrendResponseDto(List<String> trends, String ipaddress, LocalDateTime enDateTime, String id) {
+    public TrendResponseDto(List<String> trends, String ipaddress, LocalDateTime enDateTime, String id, boolean check) {
         this.trends = trends;
         this.ipaddress = ipaddress;
         this.enDateTime = enDateTime;
         this.id = id;
+        this.check = check;
     }
 
     public List<String> getTrends() {
@@ -46,6 +48,14 @@ public class TrendResponseDto {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public boolean isCheck() {
+        return check;
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
     }
 
 }

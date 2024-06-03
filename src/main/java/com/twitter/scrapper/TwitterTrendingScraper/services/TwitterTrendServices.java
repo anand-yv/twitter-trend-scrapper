@@ -192,11 +192,13 @@ public class TwitterTrendServices {
         // Method to perform actions on the page
         public TrendResponseDto actionPerform() throws InterruptedException {
                 List<String> trends = new ArrayList<>();
+                boolean check = false;
                 try {
                         setup();
                         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
                         login(wait);
                         trends = top5Trends(wait);
+                        check = true;
                 } catch (Exception e) {
                         e.printStackTrace();
                 } finally {
@@ -206,10 +208,12 @@ public class TwitterTrendServices {
                 String ipaddress = getRandomProxy();
                 LocalDateTime enDateTime = LocalDateTime.now();
                 TrendResponseDto trendResponseDto = new TrendResponseDto(trends,
-                                ipaddress.substring(0, ipaddress.length() - 5), enDateTime, "");
+                                ipaddress.substring(0, ipaddress.length() - 5), enDateTime, "", check);
 
-                TrendModel savedModel = trendsServices.saveTrends(trendResponseDto);
-                trendResponseDto.setId(savedModel.getId());
+                if (check) {
+                        TrendModel savedModel = trendsServices.saveTrends(trendResponseDto);
+                        trendResponseDto.setId(savedModel.getId());
+                }
                 return trendResponseDto;
         }
 
