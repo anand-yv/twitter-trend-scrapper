@@ -19,7 +19,9 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
+import java.util.concurrent.TimeoutException;
 
 @Service
 public class TwitterTrendServices {
@@ -88,14 +90,14 @@ public class TwitterTrendServices {
                 // options.setProxy(proxy);
                 // options.addArguments("--proxy-server=" + randomProxy);
                 // options.addArguments("--proxy-auth=" + proxyMeshUsername + ":" +
-                //                 proxyMeshPassword);
+                // proxyMeshPassword);
 
-                
                 // System.setProperty("webdriver.chrome.driver",
-                //                 chromeDriverFileLocation);
+                // chromeDriverFileLocation);
                 // System.setProperty("webdriver.chrome.driver",
-                //                 "classpath:static/chromedriver.exe");
-                System.setProperty("webdriver.chrome.driver", "C:/Users/anand_yv/Downloads/chromedriver.exe");
+                // "classpath:static/chromedriver.exe");
+                System.setProperty("webdriver.chrome.driver",
+                                "C:/Users/anand_yv/Downloads/chromedriver.exe");
 
                 driver = new ChromeDriver(options);
 
@@ -125,15 +127,26 @@ public class TwitterTrendServices {
                                         "//*[@id=\"layers\"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div/div/div/button[2]")));
                         emailNextButton.click();
 
-                        // Wait for username input and send keys
-                        WebElement usernameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
-                                        "//*[@id=\"layers\"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div[2]/label/div/div[2]/div/input")));
-                        usernameInput.sendKeys(twitterUsername);
+                        try {
+                                WebElement usernameInput = wait
+                                                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
+                                                                "//*[@id=\"layers\"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div[2]/label/div/div[2]/div/input")));
+                                usernameInput.sendKeys(twitterUsername);
+                        } catch (NoSuchElementException e) {
+                                System.out.println("Username input element not found: " + e.getMessage());
+                                // Continue execution
+                        }
 
                         // Wait for and click another next button
-                        WebElement usernameNextButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
-                                        "//*[@id=\"layers\"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/div/div/button")));
-                        usernameNextButton.click();
+                        try {
+                                WebElement usernameNextButton = wait
+                                                .until(ExpectedConditions.elementToBeClickable(By.xpath(
+                                                                "//*[@id=\"layers\"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/div/div/button")));
+                                usernameNextButton.click();
+                        } catch (NoSuchElementException e) {
+                                System.out.println("Username next button element not found: " + e.getMessage());
+                                // Continue execution
+                        }
 
                         // Wait for password input and send keys
                         WebElement passwordInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
