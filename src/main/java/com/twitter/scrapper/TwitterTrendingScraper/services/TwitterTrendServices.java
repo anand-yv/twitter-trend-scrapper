@@ -169,14 +169,17 @@ public class TwitterTrendServices {
         }
 
         private List<String> top5Trends(WebDriverWait wait) {
+                // String xpathPattern =
+                // "/html/body/div[1]/div/div/div[2]/main/div/div/div/div[2]/div/div[2]/div/div/div/div[3]/div/section/div/div/div[%d]/div/div/div/div[2]";
                 String xpathPattern = "/html/body/div[1]/div/div/div[2]/main/div/div/div/div[2]/div/div[2]/div/div/div/div[3]/div/section/div/div/div[%d]/div/div/div/div[2]";
                 List<String> trendingDivs = new ArrayList<>();
-                for (int i = 4; i < 9; i++) {
+                for (int i = 4; i < 8; i++) {
                         String xpath = String.format(xpathPattern, i);
 
                         try {
                                 trendingDivs
-                                                .add(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)))
+                                                .add(wait.until(ExpectedConditions
+                                                                .visibilityOfElementLocated(By.xpath(xpath)))
                                                                 .getText().trim());
                         } catch (NoSuchElementException e) {
                                 System.out.println("Username next button element not found: " + e.getMessage());
