@@ -89,9 +89,15 @@
                                 waitTimer.style.display = 'none'; // Hide wait message in case of error
                             });
                     }
-                    else{
+                    else {
                         const trendingDiv = document.getElementById('trending-topics');
                         trendingDiv.innerHTML = 'Some Error Occured Try Again...'; // Clear previous topics
+                        const jsonOutput = document.getElementById('trend-json-data');
+                        jsonOutput.style.display = 'none';
+                        const dateTimeParagraph = document.getElementById('timestamp');
+                        dateTimeParagraph.style.display = 'none';
+                        const ipAddressParagraph = document.getElementById('ipaddress');
+                        ipAddressParagraph.style.display = 'none';
                     }
 
                     // Change link text
