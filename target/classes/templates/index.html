@@ -64,6 +64,7 @@
                         // Append IP address information
                         const ipAddressParagraph = document.getElementById('ipaddress');
                         ipAddressParagraph.textContent = `The IP address used for this query was ${data['ipaddress']}.`;
+                        ipAddressParagraph.style.display = 'block';
 
                         // Format and display the date and time
                         const formattedDateTime = new Date(data['enDateTime']).toLocaleString('en-US', {
@@ -75,11 +76,13 @@
                         });
                         const dateTimeParagraph = document.getElementById('timestamp');
                         dateTimeParagraph.textContent = `Date and time of end of Selenium Script: ${formattedDateTime}`;
+                        dateTimeParagraph.style.display = 'block';
 
                         fetch(`/trendsById?id=${data['id']}`)
                             .then(response => response.json())
                             .then(jsonData => {
                                 const jsonOutput = document.getElementById('trend-json-data');
+                                jsonOutput.style.display = 'block';
                                 jsonOutput.textContent = JSON.stringify(jsonData, null, 2); // Pretty print JSON
                                 document.getElementById('trend-json-heading').style.display = 'block'; // Show JSON heading
                             })
