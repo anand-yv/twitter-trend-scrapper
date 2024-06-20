@@ -10,8 +10,7 @@ public class TwitterTrendController {
 
     @GetMapping("/")
     public String homePage(Model model) {
-//        model.addAttribute("message", "Welcome to our website!");
-        return "index"; // Thymeleaf template name (greeting.html)
+        return "index";
     }
 
 

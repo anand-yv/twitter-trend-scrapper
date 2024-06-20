@@ -17,7 +17,7 @@ public class TrendModel {
     // Constructors, getters, and setters
 
     public TrendModel() {
-        // Default constructor required by Spring Data MongoDB
+        // Default constructor
     }
 
     public TrendModel(List<String> trends, LocalDateTime endTime, String ipAddress) {
@@ -26,7 +26,7 @@ public class TrendModel {
         this.ipAddress = ipAddress;
     }
 
-    // Getters and setters
+    
 
     public String getId() {
         return id;
